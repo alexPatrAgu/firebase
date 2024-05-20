@@ -58,10 +58,11 @@
                             <input class="controles" type="text" id="email" placeholder="INSERTAR EL E-MAIL DEL ESTUDIANTE">
                             <button class="botones" type="submit">Agregar</button>
                         </form>
-                        <script>
+                        <ul id="lista-alumno"></ul>
+                        <script type="module">
                             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
                             import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-                    
+
                             // Configuración de Firebase
                             // Your web app's Firebase configuration
                             const firebaseConfig = {
@@ -74,7 +75,9 @@
                             };
                             const app = initializeApp(firebaseConfig);
                             const db = getFirestore(app);
+                            const listaAlumno = document.getElementById("lista-alumno");
                         </script>
+
                     </section>
                 </td>
             </tr>
