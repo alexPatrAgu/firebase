@@ -84,19 +84,19 @@
         }
 
         async function modificarAlumno(id, nombreActual, apellidoActual) {
-            const nuevoNombre = prompt("Ingrese el nuevo nombre:", nombreActual);
-            const nuevoApellido = prompt("Ingrese el nuevo apellido:", apellidoActual);
-            if (nuevoNombre !== null && nuevoApellido !== null) {
-                try {
-                    await updateDoc(doc(db, "nombre", id), {
-                        nombre: nuevoNombre,
-                        apellido: nuevoApellido
-                    });
-                } catch (error) {
-                    console.error("Error al modificar el producto:", error);
-                }
+        const nuevoNombre = prompt("Ingrese el nuevo nombre:", nombreActual);
+        const nuevoApellido = prompt("Ingrese el nuevo apellido:", apellidoActual);
+        if (nuevoNombre !== null && nuevoApellido !== null) {
+            try {
+                await updateDoc(doc(db, "alumno", id), {  // Corregir la referencia a la colección
+                    nombre: nuevoNombre,  // Actualizar el nombre
+                    apellido: nuevoApellido  // Actualizar el apellido
+                });
+            } catch (error) {
+                console.error("Error al modificar el producto:", error);
             }
         }
+    }
     </script>
 </body>
 </html>
