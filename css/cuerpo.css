@@ -1,0 +1,18 @@
+#cuerpo {
+    height: auto;
+    background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+    background-size: 1400% 1400%;
+    animation: rainbow 10s ease infinite;
+    position: relative;
+}
+#cuadro-celeste {
+    width: 80%;
+    height: 80%;
+    background-color: #00FFFF; /* Color celeste */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 10%;
+    transform: translate(-50%, -50%);
+    border: 0px solid black;
+}
