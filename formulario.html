@@ -1,0 +1,187 @@
+<html>
+    <!--TITULO DE PAGINA-->
+    <head>
+        <title>Lectura</title> 
+        <!--APLICACION DE CSS-->
+        <link href="css/menu.css" rel="stylesheet">
+        <link href="css/estyle2.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/formulario.css" rel="stylesheet">
+    </head>
+        <!--COLOR DEL CUERPO DE LA PAGINA-->
+    <body bgcolor="#FFFFFF">
+        <!--TABLA PRINCIPAL-->
+        <!--Centra; color-->
+        <table border="0" width="95%" align="center" bgcolor="#0B73F8" class="tabla_1" padding="auto">
+            <!--PORTADA-->
+            <tr>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="imagenes/formulario_hoy/LOGO.jpg" class="edit_1"></td>
+            </tr>
+            <!--Tabla menú opciones_1-->
+            <tr>
+                <td colspan="8" >
+                    <table>
+                    <tr>
+                        <!--Menu desplegable con listas-->
+                        <header>
+                            <nav class="navegacion">
+                                <ul  align="right" class="menu">
+                                    <li><a href="index.html"><h3>Inicio</h3></a>
+                                </ul>
+                            </nav>
+                        </header>
+                    </tr> 
+                    </table>      
+                </td>
+            </tr>
+            <!--TABLA2--> 
+            <td bgcolor="white" align="center" class="tabla_1">
+                <table border="0">
+                    <tr>
+                        <td colspan="7">&nbsp;&nbsp; </td>
+                    </tr>
+                    <!--IMAGEN PORTADA INICAL--> 
+                    <tr>
+                        <td>
+                            <table border="0" align="center">
+                            <tr>
+                                <td colspan="8" align="center"><img src="imagenes/formulario_hoy/Lectura_1.jpg" class="portada"> </td>
+                            </tr> 
+                                </table> 
+                                    <form id="alumno">
+                                        <ul id="lista-alumno"></ul>
+                                        <script type="module">
+                                            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+                                            import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+                
+                                            // Configuración de Firebase
+                                            // Your web app's Firebase configuration
+                                            const firebaseConfig = {
+                                            apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
+                                            authDomain: "usuario-a1979.firebaseapp.com",
+                                            projectId: "usuario-a1979",
+                                            storageBucket: "usuario-a1979.appspot.com",
+                                            messagingSenderId: "515804654653",
+                                            appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
+                                            };
+                                            const app = initializeApp(firebaseConfig);
+                                            const db = getFirestore(app);
+                
+                                            const listaAlumno = document.getElementById("lista-alumno");
+                
+                                            function renderAlumno(querySnapshot) {
+                                                listaAlumno.innerHTML = "";
+                                                querySnapshot.forEach(doc => {
+                                                    const alumno = doc.data();
+                                                    const li = document.createElement("li");
+                                                    li.textContent = `${alumno.nombre} - ${alumno.apellido}- ${alumno.materia}- ${alumno.paralelo}- ${alumno.docente}- ${alumno.ciclo}- ${alumno.jornada}- ${alumno.cedula}- ${alumno.direccion}- ${alumno.email}`;
+                                                    const btnEliminar = document.createElement("button");
+                                                    btnEliminar.textContent = "Eliminar";
+                                                    btnEliminar.classList.add("botones"); // Agregar clase CSS "botones"
+                                                    btnEliminar.addEventListener("click", () => {
+                                                        eliminarAlumno(doc.id);
+                                                    });
+                
+                                                    const btnModificar = document.createElement("button");
+                                                    btnModificar.textContent = "Modificar";
+                                                    btnModificar.classList.add("botones"); // Agregar clase CSS "botones"
+                                                    btnModificar.addEventListener("click", () => {
+                                                        modificarAlumno(doc.id, alumno.nombre, alumno.apellido, alumno.materia, alumno.paralelo, alumno.docente, alumno.ciclo, alumno.jornada, alumno.cedula, alumno.direccion, alumno.email);
+                                                    });
+                                                    li.appendChild(btnEliminar);
+                                                    li.appendChild(btnModificar);
+                                                    listaAlumno.appendChild(li);
+                                                });
+                                            }
+                
+                                            onSnapshot(collection(db, "alumno"), renderAlumno);
+                
+                                            const alumnoForm = document.getElementById("alumno");
+                                            alumnoForm.addEventListener("submit", async(e) => {
+                                                e.preventDefault();
+                                                await addDoc(collection(db, "alumno"), {
+                                                    nombre: alumnoForm.nombre.value,
+                                                    apellido: alumnoForm.apellido.value,
+                                                    materia: alumnoForm.materia.value,
+                                                    paralelo: alumnoForm.paralelo.value,
+                                                    docente: alumnoForm.docente.value,
+                                                    ciclo: alumnoForm.ciclo.value,
+                                                    jornada: alumnoForm.jornada.value,
+                                                    cedula: alumnoForm.cedula.value,
+                                                    direccion: alumnoForm.direccion.value,
+                                                    email: alumnoForm.email.value
+                                                });
+                                                alumnoForm.reset();
+                                            });
+                
+                                            async function eliminarAlumno(id) {
+                                                try {
+                                                    await deleteDoc(doc(db, "alumno", id));
+                                                } catch (error) {
+                                                    console.error("Error al eliminar el DATO:", error);
+                                                }
+                                            }
+                
+                                            async function modificarAlumno(id, nombreActual, apellidoActual, materiaActual, paraleloActual, docenteActual, cicloActual, jornadaActual, cedulaActual, direccionActual, emailActual) 
+                                            {
+                                            const nuevoNombre = prompt("Ingrese el nuevo nombre:", nombreActual);
+                                            const nuevoApellido = prompt("Ingrese el nuevo apellido:", apellidoActual);
+                                            const nuevoMateria = prompt("Ingrese la nueva materia:", materiaActual);
+                                            const nuevoParalelo = prompt("Ingrese el nuevo paralelo:", paraleloActual);
+                                            const nuevoDocente = prompt("Ingrese el nuevo docente:", docenteActual);
+                                            const nuevoCiclo = prompt("Ingrese el nuevo ciclo:", cicloActual);
+                                            const nuevoJornada = prompt("Ingrese la nueva jornada:", jornadaActual);
+                                            const nuevoCedula = prompt("Ingrese la cedula nuevamente:", cedulaActual);
+                                            const nuevoDireccion = prompt("Ingrese la nueva direccion:", direccionActual);
+                                            const nuevoEmail = prompt("Ingrese el nuevo email:", emailActual);
+                                            if (nuevoNombre !== null && nuevoApellido !== null) {
+                                                try {
+                                                    await updateDoc(doc(db, "alumno", id), {  // Corregir la referencia a la colección
+                                                        nombre: nuevoNombre,  // Actualizar el nombre
+                                                        apellido: nuevoApellido,  // Actualizar el apellido
+                                                        materia: nuevoMateria,  
+                                                        paralelo: nuevoParalelo,  
+                                                        docente: nuevoDocente,  
+                                                        ciclo: nuevoCiclo,  
+                                                        jornada: nuevoJornada,  
+                                                        cedula: nuevoCedula,  
+                                                        direccion: nuevoDireccion,  
+                                                        email: nuevoEmail  
+                
+                                                    });
+                                                } catch (error) {
+                                                    console.error("Error al modificar el DATO:", error);
+                                                }
+                                            }
+                                        }
+                                        </script>
+                                    </form>  
+                            </table>  
+                        </tr>
+                    </tr>
+                    <tr>
+                        <td><H1 align="center" class="textoPImag">FORMULARIO DE INGRESO</H1></td>
+
+                    </tr>
+                    
+                    <!--IMAGEN PORTADA FINAL--> 
+                    <tr>
+                        <td>
+                            <table border="0" align="center">
+                            <tr>
+                                <td colspan="8" align="center"><img src="imagenes/formulario_hoy/PortadaFinal.jpeg" class="portada"> </td>
+                            </tr> 
+                            </table>      
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7">&nbsp;&nbsp; </td>
+                    </tr>
+                </tr>  
+        </table>
+        <!--TABLA PIE DEL DISEÑO-->
+        <tr>
+            <td colspan="2">&nbsp;</td>
+        </tr>
+    </body>
+</html>

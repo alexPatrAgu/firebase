@@ -25,7 +25,7 @@
                         <img src="imagenes/Formulario_Imag.jpeg" class="imagen_formulario">
                         <br>
                         <br>
-                        <h4 align="justify" class="parrafos"> "Cada libro es una aventura esperando ser descubierta. Sumergete en la magia de las palabras!" </h4>
+                        <h4 align="justify" class="parrafos"> "POR EL BIENESTAR DE LA SOCIEDAD, CREANDO LIDERES Y OBRADORES DE LA EFICACIA PARA QUE PUEDAN CAMBIAR EL MUNDO!" </h4>
                         <h4 align="center">Bienvenido/a</h4>
                         <h4 align="center">Ingresa tus datos</h4>
                         <form id="alumno">
@@ -110,7 +110,7 @@
                                 try {
                                     await deleteDoc(doc(db, "alumno", id));
                                 } catch (error) {
-                                    console.error("Error al eliminar el producto:", error);
+                                    console.error("Error al eliminar el DATO:", error);
                                 }
                             }
 
@@ -131,18 +131,18 @@
                                     await updateDoc(doc(db, "alumno", id), {  // Corregir la referencia a la colección
                                         nombre: nuevoNombre,  // Actualizar el nombre
                                         apellido: nuevoApellido,  // Actualizar el apellido
-                                        materia: nuevoMateria,  // Actualizar el apellido
-                                        paralelo: nuevoParalelo,  // Actualizar el apellido
-                                        docente: nuevoDocente,  // Actualizar el apellido
-                                        ciclo: nuevoCiclo,  // Actualizar el apellido
-                                        jornada: nuevoJornada,  // Actualizar el apellido
-                                        cedula: nuevoCedula,  // Actualizar el apellido
-                                        direccion: nuevoDireccion,  // Actualizar el apellido
-                                        email: nuevoEmail  // Actualizar el apellido
+                                        materia: nuevoMateria,  
+                                        paralelo: nuevoParalelo,  
+                                        docente: nuevoDocente,  
+                                        ciclo: nuevoCiclo,  
+                                        jornada: nuevoJornada,  
+                                        cedula: nuevoCedula,  
+                                        direccion: nuevoDireccion,  
+                                        email: nuevoEmail  
 
                                     });
                                 } catch (error) {
-                                    console.error("Error al modificar el producto:", error);
+                                    console.error("Error al modificar el DATO:", error);
                                 }
                             }
                         }
