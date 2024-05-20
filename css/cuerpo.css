@@ -15,4 +15,13 @@
     border-radius: 10%;
     transform: translate(-50%, -50%);
     border: 0px solid black;
+    text-align: center; /* Centra el texto dentro del cuadro */
+}
+@keyframes rainbow {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
 }
