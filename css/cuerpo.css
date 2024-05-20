@@ -1,27 +1,7 @@
-#cuerpo {
-    height: 80%;
-    background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-    background-size: 1400% 1400%;
-    animation: rainbow 10s ease infinite;
-    position: relative;
-}
-#cuadro-celeste {
-    width: 80%;
-    height: 80%;
-    background-color: #00FFFF; /* Color celeste */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 10%;
-    transform: translate(-50%, -50%);
-    border: 0px solid black;
-    text-align: center; /* Centra el texto dentro del cuadro */
-}
-@keyframes rainbow {
-    0%, 100% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
+/* Estilos para el cuadro de arcoíris abajo */
+#cuadro-arcoiris {
+    background: linear-gradient(to right, #FF0000, #FF7F00, #FFFF00, #00FF00, #0000FF, #4B0082, #9400D3); /* Arcoíris */
+    padding: 20px;
+    text-align: center;
+    color: white; /* Texto en blanco para que se vea mejor en el arcoíris */
 }
