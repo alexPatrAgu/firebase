@@ -60,11 +60,14 @@
                                     li.textContent = `${alumno.nombre} - ${alumno.apellido}`;
                                     const btnEliminar = document.createElement("button");
                                     btnEliminar.textContent = "Eliminar";
+                                    btnEliminar.classList.add("botones"); // Agregar clase CSS "botones"
                                     btnEliminar.addEventListener("click", () => {
                                         eliminarAlumno(doc.id);
                                     });
+
                                     const btnModificar = document.createElement("button");
                                     btnModificar.textContent = "Modificar";
+                                    btnModificar.classList.add("botones"); // Agregar clase CSS "botones"
                                     btnModificar.addEventListener("click", () => {
                                         modificarAlumno(doc.id, alumno.nombre, alumno.apellido);
                                     });
