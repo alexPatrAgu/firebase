@@ -114,14 +114,32 @@
                                 }
                             }
 
-                            async function modificarAlumno(id, nombreActual, apellidoActual) {
+                            async function modificarAlumno(id, nombreActual, apellidoActual, materiaActual, paraleloActual, docenteActual, cicloActual, jornadaActual, cedulaActual, direccionActual, emailActual) 
+                            {
                             const nuevoNombre = prompt("Ingrese el nuevo nombre:", nombreActual);
                             const nuevoApellido = prompt("Ingrese el nuevo apellido:", apellidoActual);
+                            const nuevoMateria = prompt("Ingrese la nueva materia:", materiaActual);
+                            const nuevoParalelo = prompt("Ingrese el nuevo paralelo:", paraleloActual);
+                            const nuevoDocente = prompt("Ingrese el nuevo docente:", docenteActual);
+                            const nuevoCiclo = prompt("Ingrese el nuevo ciclo:", cicloActual);
+                            const nuevoJornada = prompt("Ingrese la nueva jornada:", jornadaActual);
+                            const nuevoCedula = prompt("Ingrese la cedula nuevamente:", cedulaActual);
+                            const nuevoDireccion = prompt("Ingrese la nueva direccion:", direccionActual);
+                            const nuevoEmail = prompt("Ingrese el nuevo email:", emailActual);
                             if (nuevoNombre !== null && nuevoApellido !== null) {
                                 try {
                                     await updateDoc(doc(db, "alumno", id), {  // Corregir la referencia a la colección
                                         nombre: nuevoNombre,  // Actualizar el nombre
-                                        apellido: nuevoApellido  // Actualizar el apellido
+                                        apellido: nuevoApellido,  // Actualizar el apellido
+                                        materia: nuevoMateria,  // Actualizar el apellido
+                                        paralelo: nuevoParalelo,  // Actualizar el apellido
+                                        docente: nuevoDocente,  // Actualizar el apellido
+                                        ciclo: nuevoCiclo,  // Actualizar el apellido
+                                        jornada: nuevoJornada,  // Actualizar el apellido
+                                        cedula: nuevoCedula,  // Actualizar el apellido
+                                        direccion: nuevoDireccion,  // Actualizar el apellido
+                                        email: nuevoEmail  // Actualizar el apellido
+
                                     });
                                 } catch (error) {
                                     console.error("Error al modificar el producto:", error);
