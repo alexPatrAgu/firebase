@@ -31,96 +31,104 @@
                         <form id="alumno">
                             <input class="controles" type="text" id="nombre" placeholder="INSERTA EL NOMBRE DEL ESTUDIANTE">
                             <input class="controles" type="text" id="apellido" placeholder="INSERTAR EL APELLIDO DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="materia" placeholder="INSERTAR LA MATERIA DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="paralelo" placeholder="INSERTAR EL PARALELO DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="docente" placeholder="INSERTAR EL DOCENTE DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="ciclo" placeholder="INSERTAR EL CICLO DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="jornada" placeholder="INSERTAR LA JORNADA DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="cedula" placeholder="INSERTAR LA CEDULA DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="direccion" placeholder="INSERTAR LA DIRECCION DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="email" placeholder="INSERTAR EL E-MAIL DEL ESTUDIANTE">
                             <button class="botones" type="submit">Agregar</button>
                         </form>
-                        
-                        <tr>
-                            <td id="cuerpo">
-                                <div id="cuadro-celeste">
-                                    <ul id="lista-alumno"></ul>
-                                    <script type="module">
-                                        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-                                        import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+                        <ul id="lista-alumno"></ul>
+                        <script type="module">
+                            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+                            import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-                                        // Configuración de Firebase
-                                        // Your web app's Firebase configuration
-                                        const firebaseConfig = {
-                                        apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
-                                        authDomain: "usuario-a1979.firebaseapp.com",
-                                        projectId: "usuario-a1979",
-                                        storageBucket: "usuario-a1979.appspot.com",
-                                        messagingSenderId: "515804654653",
-                                        appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
-                                        };
-                                        const app = initializeApp(firebaseConfig);
-                                        const db = getFirestore(app);
+                            // Configuración de Firebase
+                            // Your web app's Firebase configuration
+                            const firebaseConfig = {
+                            apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
+                            authDomain: "usuario-a1979.firebaseapp.com",
+                            projectId: "usuario-a1979",
+                            storageBucket: "usuario-a1979.appspot.com",
+                            messagingSenderId: "515804654653",
+                            appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
+                            };
+                            const app = initializeApp(firebaseConfig);
+                            const db = getFirestore(app);
 
-                                        const listaAlumno = document.getElementById("lista-alumno");
+                            const listaAlumno = document.getElementById("lista-alumno");
 
-                                        function renderAlumno(querySnapshot) {
-                                            listaAlumno.innerHTML = "";
-                                            querySnapshot.forEach(doc => {
-                                                const alumno = doc.data();
-                                                const li = document.createElement("li");
-                                                li.textContent = `${alumno.nombre} - ${alumno.apellido}`;
-                                                const btnEliminar = document.createElement("button");
-                                                btnEliminar.textContent = "Eliminar";
-                                                btnEliminar.classList.add("botones"); // Agregar clase CSS "botones"
-                                                btnEliminar.addEventListener("click", () => {
-                                                    eliminarAlumno(doc.id);
-                                                });
+                            function renderAlumno(querySnapshot) {
+                                listaAlumno.innerHTML = "";
+                                querySnapshot.forEach(doc => {
+                                    const alumno = doc.data();
+                                    const li = document.createElement("li");
+                                    li.textContent = `${alumno.nombre} - ${alumno.apellido}- ${alumno.materia}- ${alumno.paralelo}- ${alumno.docente}- ${alumno.ciclo}- ${alumno.jornada}- ${alumno.cedula}- ${alumno.direccion}- ${alumno.email}`;
+                                    const btnEliminar = document.createElement("button");
+                                    btnEliminar.textContent = "Eliminar";
+                                    btnEliminar.classList.add("botones"); // Agregar clase CSS "botones"
+                                    btnEliminar.addEventListener("click", () => {
+                                        eliminarAlumno(doc.id);
+                                    });
 
-                                                const btnModificar = document.createElement("button");
-                                                btnModificar.textContent = "Modificar";
-                                                btnModificar.classList.add("botones"); // Agregar clase CSS "botones"
-                                                btnModificar.addEventListener("click", () => {
-                                                    modificarAlumno(doc.id, alumno.nombre, alumno.apellido);
-                                                });
-                                                li.appendChild(btnEliminar);
-                                                li.appendChild(btnModificar);
-                                                listaAlumno.appendChild(li);
-                                            });
-                                        }
+                                    const btnModificar = document.createElement("button");
+                                    btnModificar.textContent = "Modificar";
+                                    btnModificar.classList.add("botones"); // Agregar clase CSS "botones"
+                                    btnModificar.addEventListener("click", () => {
+                                        modificarAlumno(doc.id, alumno.nombre, alumno.apellido, alumno.materia, alumno.paralelo, alumno.docente, alumno.ciclo, alumno.jornada, alumno.cedula, alumno.direccion, alumno.email);
+                                    });
+                                    li.appendChild(btnEliminar);
+                                    li.appendChild(btnModificar);
+                                    listaAlumno.appendChild(li);
+                                });
+                            }
 
-                                        onSnapshot(collection(db, "alumno"), renderAlumno);
+                            onSnapshot(collection(db, "alumno"), renderAlumno);
 
-                                        const alumnoForm = document.getElementById("alumno");
-                                        alumnoForm.addEventListener("submit", async(e) => {
-                                            e.preventDefault();
-                                            await addDoc(collection(db, "alumno"), {
-                                                nombre: alumnoForm.nombre.value,
-                                                apellido: alumnoForm.apellido.value
-                                            });
-                                            alumnoForm.reset();
-                                        });
+                            const alumnoForm = document.getElementById("alumno");
+                            alumnoForm.addEventListener("submit", async(e) => {
+                                e.preventDefault();
+                                await addDoc(collection(db, "alumno"), {
+                                    nombre: alumnoForm.nombre.value,
+                                    apellido: alumnoForm.apellido.value,
+                                    materia: alumnoForm.materia.value,
+                                    paralelo: alumnoForm.paralelo.value,
+                                    docente: alumnoForm.docente.value,
+                                    ciclo: alumnoForm.ciclo.value,
+                                    jornada: alumnoForm.jornada.value,
+                                    cedula: alumnoForm.cedula.value,
+                                    direccion: alumnoForm.direccion.value,
+                                    email: alumnoForm.email.value
+                                });
+                                alumnoForm.reset();
+                            });
 
-                                        async function eliminarAlumno(id) {
-                                            try {
-                                                await deleteDoc(doc(db, "alumno", id));
-                                            } catch (error) {
-                                                console.error("Error al eliminar el producto:", error);
-                                            }
-                                        }
+                            async function eliminarAlumno(id) {
+                                try {
+                                    await deleteDoc(doc(db, "alumno", id));
+                                } catch (error) {
+                                    console.error("Error al eliminar el producto:", error);
+                                }
+                            }
 
-                                        async function modificarAlumno(id, nombreActual, apellidoActual) {
-                                        const nuevoNombre = prompt("Ingrese el nuevo nombre:", nombreActual);
-                                        const nuevoApellido = prompt("Ingrese el nuevo apellido:", apellidoActual);
-                                        if (nuevoNombre !== null && nuevoApellido !== null) {
-                                            try {
-                                                await updateDoc(doc(db, "alumno", id), {  // Corregir la referencia a la colección
-                                                    nombre: nuevoNombre,  // Actualizar el nombre
-                                                    apellido: nuevoApellido  // Actualizar el apellido
-                                                });
-                                            } catch (error) {
-                                                console.error("Error al modificar el producto:", error);
-                                            }
-                                        }
-                                    }
-                                    </script>
-                                </div>
-                                
-                            </td>
-                        </tr>
+                            async function modificarAlumno(id, nombreActual, apellidoActual) {
+                            const nuevoNombre = prompt("Ingrese el nuevo nombre:", nombreActual);
+                            const nuevoApellido = prompt("Ingrese el nuevo apellido:", apellidoActual);
+                            if (nuevoNombre !== null && nuevoApellido !== null) {
+                                try {
+                                    await updateDoc(doc(db, "alumno", id), {  // Corregir la referencia a la colección
+                                        nombre: nuevoNombre,  // Actualizar el nombre
+                                        apellido: nuevoApellido  // Actualizar el apellido
+                                    });
+                                } catch (error) {
+                                    console.error("Error al modificar el producto:", error);
+                                }
+                            }
+                        }
+                        </script>
                     </section>
                 </td>
             </tr>
