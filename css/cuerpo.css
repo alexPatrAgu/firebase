@@ -1,5 +1,5 @@
 #cuerpo {
-    height: auto;
+    height: 80%;
     background: linear-gradient(270deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
     background-size: 1400% 1400%;
     animation: rainbow 10s ease infinite;
