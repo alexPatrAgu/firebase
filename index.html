@@ -27,6 +27,7 @@
         import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         // Configuración de Firebase
+        // Your web app's Firebase configuration
         const firebaseConfig = {
         apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
         authDomain: "usuario-a1979.firebaseapp.com",
@@ -62,7 +63,7 @@
             });
         }
 
-        onSnapshot(collection(db, "alumno"), renderProductos);
+        onSnapshot(collection(db, "alumno"), renderAlumno);
 
         const alumnoForm = document.getElementById("alumno");
         alumnoForm.addEventListener("submit", async(e) => {
