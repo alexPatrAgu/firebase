@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<!--TITULO DE PAGINA-->
+<head>
+    <title>BASE DE DATOS</title> 
+    <!--APLICACION DE CSS-->
+    <!-- Enlaces a los archivos CSS -->
+    <link href="css/menu.css" rel="stylesheet">
+    <link href="css/estyle2.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/formulario.css" rel="stylesheet">
+</head>
+<!--COLOR DEL CUERPO DE LA PAGINA-->
+<body bgcolor="#FFFFFF">
+    <!--TABLA PRINCIPAL-->
+    <!--Centra; color-->
+    <table border="0" width="95%" align="center" bgcolor="#0B73F8" class="tabla_1" padding="auto">
+        <!--Tabla menú opciones_1-->
+        <tr>
+            <td colspan="8" >
+                <table>
+                    <tr>
+                        <!--Menu desplegable con listas-->
+                        <header>
+                            <nav class="navegacion">
+                                <ul  align="center" class="menu">
+                                    <li><a href="index.html"><h3>INICIO</h3></a></li>
+                                    <!-- Enlace de menú para ir a la página de inicio -->
+                                </ul>
+                            </nav>
+                        </header>
+                    </tr> 
+                </table>      
+            </td>
+        </tr>
+        <!--TABLA2--> 
+        <td bgcolor="white" align="center" class="tabla_1">
+            <table border="0">
+                <tr>
+                    <td colspan="7">&nbsp;&nbsp; </td>
+                </tr>
+                <!--IMAGEN PORTADA INICIAL--> 
+                <tr>
+                    <td>
+                        <table border="0" align="center">
+                            <tr>
+                                <td colspan="8" align="center"><img src="imagenes/Lectura_1.jpg" class="portada"> </td>
+                            </tr> 
+                            <tr>
+                                <td><H1 align="center" class="textoPImag">DATOS DEL FORMULARIO</H1></td>
+                            </tr>
+                        </table> 
+                        <!-- Formulario de ingreso de datos -->
+                        <form id="alumno">
+                            <!-- Tablas para organizar los campos del formulario -->
+                            <table border="0" align="center">
+                                <tr>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td><label for="nombre">Nombre:</label></td>
+                                                <td><input type="text" id="nombre" name="nombre" value="Nombre"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="materia">Materia:</label></td>
+                                                <td><input type="text" id="materia" name="materia" value="Materia"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="docente">Docente:</label></td>
+                                                <td><input type="text" id="docente" name="docente" value="Docente"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="jornada">Jornada:</label></td>
+                                                <td><input type="text" id="jornada" name="jornada" value="Jornada"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td><label for="apellido">Apellido:</label></td>
+                                                <td><input type="text" id="apellido" name="apellido" value="Apellido"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="paralelo">Paralelo:</label></td>
+                                                <td><input type="text" id="paralelo" name="paralelo" value="Paralelo"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="ciclo">Ciclo:</label></td>
+                                                <td><input type="text" id="ciclo" name="ciclo" value="Ciclo"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="cedula">Cédula:</label></td>
+                                                <td><input type="text" id="cedula" name="cedula" value="Cédula"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td><label for="direccion">Dirección:</label></td>
+                                                <td><input type="text" id="direccion" name="direccion" value="Dirección"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="email">Email:</label></td>
+                                                <td><input type="email" id="email" name="email" value="Email"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" align="center">
+                                        <button type="submit">Agregar Alumno</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>  
+                    </table>  
+                </tr>
+            </td>
+        </tr>
+        <!--IMAGEN PORTADA FINAL--> 
+        <tr>
+            <td>
+                <table border="0" align="center">
+                    <tr>
+                        <td colspan="8" align="center"><img src="imagenes/PortadaFinal.jpeg" class="portada"> </td>
+                    </tr> 
+                </table>      
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7">&nbsp;&nbsp; </td>
+        </tr>
+    </table>
+    <!--TABLA PIE DEL DISEÑO-->
+    <tr>
+        <td colspan="2">&nbsp;</td>
+    </tr>
+</body>
+</html>
