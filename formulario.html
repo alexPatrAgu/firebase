@@ -54,6 +54,40 @@
                         <form id="alumno">
                             <!-- Lista para mostrar los datos ingresados -->
                             <ul id="lista-alumno"></ul>
+                            <table border="1" align="center">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Materia</th>
+                                    <th>Paralelo</th>
+                                    <th>Docente</th>
+                                    <th>Ciclo</th>
+                                    <th>Jornada</th>
+                                    <th>Cédula</th>
+                                    <th>Dirección</th>
+                                    <th>Email</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                <!-- Aquí se agregan las filas con los datos -->
+                                <tr>
+                                    <td>Nombre1</td>
+                                    <td>Apellido1</td>
+                                    <td>Materia1</td>
+                                    <td>Paralelo1</td>
+                                    <td>Docente1</td>
+                                    <td>Ciclo1</td>
+                                    <td>Jornada1</td>
+                                    <td>Cédula1</td>
+                                    <td>Dirección1</td>
+                                    <td>Email1</td>
+                                    <td>
+                                        <button class="botones" onclick="eliminarAlumno(id)">Eliminar</button>
+                                        <button class="botones" onclick="modificarAlumno(id)">Modificar</button>
+                                    </td>
+                                </tr>
+                                <!-- Repite estas filas para cada alumno -->
+                            </table>
+
                             <!-- Script para interactuar con la base de datos -->
                             <script type="module">
                                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
