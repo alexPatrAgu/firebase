@@ -39,7 +39,7 @@
                 <tr>
                     <td colspan="7">&nbsp;&nbsp; </td>
                 </tr>
-                <!--IMAGEN PORTADA INICIAL--> 
+                <!--IMAGEN PORTADA INICAL--> 
                 <tr>
                     <td>
                         <table border="0" align="center">
@@ -50,72 +50,73 @@
                                 <td><H1 align="center" class="textoPImag">DATOS DEL FORMULARIO</H1></td>
                             </tr>
                         </table> 
-                        <!-- Formulario de ingreso de datos -->
-                        <form id="alumno">
-                            <!-- Tablas para organizar los campos del formulario -->
-                            <table border="0" align="center">
-                                <tr>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td><label for="nombre">Nombre:</label></td>
-                                                <td><input type="text" id="nombre" name="nombre" value="Nombre"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="materia">Materia:</label></td>
-                                                <td><input type="text" id="materia" name="materia" value="Materia"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="docente">Docente:</label></td>
-                                                <td><input type="text" id="docente" name="docente" value="Docente"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="jornada">Jornada:</label></td>
-                                                <td><input type="text" id="jornada" name="jornada" value="Jornada"></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td><label for="apellido">Apellido:</label></td>
-                                                <td><input type="text" id="apellido" name="apellido" value="Apellido"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="paralelo">Paralelo:</label></td>
-                                                <td><input type="text" id="paralelo" name="paralelo" value="Paralelo"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="ciclo">Ciclo:</label></td>
-                                                <td><input type="text" id="ciclo" name="ciclo" value="Ciclo"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="cedula">Cédula:</label></td>
-                                                <td><input type="text" id="cedula" name="cedula" value="Cédula"></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table>
-                                            <tr>
-                                                <td><label for="direccion">Dirección:</label></td>
-                                                <td><input type="text" id="direccion" name="direccion" value="Dirección"></td>
-                                            </tr>
-                                            <tr>
-                                                <td><label for="email">Email:</label></td>
-                                                <td><input type="email" id="email" name="email" value="Email"></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" align="center">
-                                        <button type="submit">Agregar Alumno</button>
-                                    </td>
-                                </tr>
-                            </table>
-                        </form>  
-                    </table>  
+                        <!-- Tabla para mostrar los datos ingresados -->
+                        <table border="1" align="center">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Materia</th>
+                                <th>Paralelo</th>
+                                <th>Docente</th>
+                                <th>Ciclo</th>
+                                <th>Jornada</th>
+                                <th>Cédula</th>
+                                <th>Dirección</th>
+                                <th>Email</th>
+                                <th>Acciones</th>
+                            </tr>
+                            <!-- Aquí se agregan las filas con los datos -->
+                            <tr>
+                                <td>Nombre1</td>
+                                <td>Apellido1</td>
+                                <td>Materia1</td>
+                                <td>Paralelo1</td>
+                                <td>Docente1</td>
+                                <td>Ciclo1</td>
+                                <td>Jornada1</td>
+                                <td>Cédula1</td>
+                                <td>Dirección1</td>
+                                <td>Email1</td>
+                                <td>
+                                    <button class="botones" onclick="eliminarAlumno(id)">Eliminar</button>
+                                    <button class="botones" onclick="modificarAlumno(id)">Modificar</button>
+                                </td>
+                            </tr>
+                            <!-- Repite estas filas para cada alumno -->
+                        </table>
+                        <!-- Script para interactuar con la base de datos -->
+                        <script type="module">
+                            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+                            import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+                            // Configuración de Firebase
+                            // Your web app's Firebase configuration
+                            const firebaseConfig = {
+                                apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
+                                authDomain: "usuario-a1979.firebaseapp.com",
+                                projectId: "usuario-a1979",
+                                storageBucket: "usuario-a1979.appspot.com",
+                                messagingSenderId: "515804654653",
+                                appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
+                            };
+                            const app = initializeApp(firebaseConfig);
+                            const db = getFirestore(app);
+
+                            // Función para eliminar un alumno
+                            async function eliminarAlumno(id) {
+                                try {
+                                    await deleteDoc(doc(db, "alumno", id));
+                                } catch (error) {
+                                    console.error("Error al eliminar el DATO:", error);
+                                }
+                            }
+
+                            // Función para modificar un alumno
+                            async function modificarAlumno(id) {
+                                // Aquí puedes agregar el código para modificar un alumno
+                            }
+                        </script>
+                    </td>  
                 </tr>
             </td>
         </tr>
