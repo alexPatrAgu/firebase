@@ -70,7 +70,27 @@
                                 </tr>
                                 <!-- Aquí se agregan las filas con los datos -->
                                 <tr>
-                                    <td>Nombre1</td>
+                                    <script>
+                                        // Evento para agregar un nuevo alumno
+                                        const alumnoForm = document.getElementById("alumno");
+                                        alumnoForm.addEventListener("submit", async(e) => {
+                                            e.preventDefault();
+                                            await addDoc(collection(db, "alumno"), {
+                                                nombre: alumnoForm.nombre.value,
+                                                apellido: alumnoForm.apellido.value,
+                                                materia: alumnoForm.materia.value,
+                                                paralelo: alumnoForm.paralelo.value,
+                                                docente: alumnoForm.docente.value,
+                                                ciclo: alumnoForm.ciclo.value,
+                                                jornada: alumnoForm.jornada.value,
+                                                cedula: alumnoForm.cedula.value,
+                                                direccion: alumnoForm.direccion.value,
+                                                email: alumnoForm.email.value
+                                            });
+                                            alumnoForm.reset();
+                                        });
+                                    </script>
+                                    <td>alumnoForm.nombre</td>
                                     <td>Apellido1</td>
                                     <td>Materia1</td>
                                     <td>Paralelo1</td>
@@ -138,23 +158,6 @@
                                 onSnapshot(collection(db, "alumno"), renderAlumno);
 
                                 // Evento para agregar un nuevo alumno
-                                const alumnoForm = document.getElementById("alumno");
-                                alumnoForm.addEventListener("submit", async(e) => {
-                                    e.preventDefault();
-                                    await addDoc(collection(db, "alumno"), {
-                                        nombre: alumnoForm.nombre.value,
-                                        apellido: alumnoForm.apellido.value,
-                                        materia: alumnoForm.materia.value,
-                                        paralelo: alumnoForm.paralelo.value,
-                                        docente: alumnoForm.docente.value,
-                                        ciclo: alumnoForm.ciclo.value,
-                                        jornada: alumnoForm.jornada.value,
-                                        cedula: alumnoForm.cedula.value,
-                                        direccion: alumnoForm.direccion.value,
-                                        email: alumnoForm.email.value
-                                    });
-                                    alumnoForm.reset();
-                                });
 
                                 // Función para eliminar un alumno
                                 async function eliminarAlumno(id) {
