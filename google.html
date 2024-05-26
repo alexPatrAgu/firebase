@@ -78,15 +78,16 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+        // Your web app's Firebase configuration
         const firebaseConfig = {
-            apiKey: "YourAPIKey",
-            authDomain: "YourAuthDomain",
-            projectId: "YourProjectId",
-            storageBucket: "YourStorageBucket",
-            messagingSenderId: "YourMessagingSenderId",
-            appId: "YourAppId"
-        };
+                                    apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
+                                    authDomain: "usuario-a1979.firebaseapp.com",
+                                    projectId: "usuario-a1979",
+                                    storageBucket: "usuario-a1979.appspot.com",
+                                    messagingSenderId: "515804654653",
+                                    appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
+                                };  
+        
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
