@@ -91,7 +91,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        const tablaAlumnos = document.getElementById("lista-alumno");
+        const tablaAlumnos = document.getElementById("tabla-alumnos");
 
         function renderAlumno(querySnapshot) {
             tablaAlumnos.innerHTML = "";
