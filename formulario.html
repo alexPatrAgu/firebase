@@ -72,7 +72,7 @@
                                 const app = initializeApp(firebaseConfig);
                                 const db = getFirestore(app);
 
-                                const listaAlumno = document.getElementById("lista-alumno");
+                                //const listaAlumno = document.getElementById("lista-alumno");
 
                                 // Función para renderizar los datos del alumno
                                 function renderAlumno(querySnapshot) {
@@ -103,7 +103,24 @@
                                 // Observador para actualizar la lista cuando se modifiquen los datos
                                 onSnapshot(collection(db, "alumno"), renderAlumno);
 
-                                
+                                // Evento para agregar un nuevo alumno
+                                const alumnoForm = document.getElementById("alumno");
+                                alumnoForm.addEventListener("submit", async(e) => {
+                                    e.preventDefault();
+                                    await addDoc(collection(db, "alumno"), {
+                                        nombre: alumnoForm.nombre.value,
+                                        apellido: alumnoForm.apellido.value,
+                                        materia: alumnoForm.materia.value,
+                                        paralelo: alumnoForm.paralelo.value,
+                                        docente: alumnoForm.docente.value,
+                                        ciclo: alumnoForm.ciclo.value,
+                                        jornada: alumnoForm.jornada.value,
+                                        cedula: alumnoForm.cedula.value,
+                                        direccion: alumnoForm.direccion.value,
+                                        email: alumnoForm.email.value
+                                    });
+                                    alumnoForm.reset();
+                                });
 
                                 // Función para eliminar un alumno
                                 async function eliminarAlumno(id) {
