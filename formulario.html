@@ -55,6 +55,21 @@
                             <!-- Lista para mostrar los datos ingresados -->
                             <ul id="lista-alumno"></ul>
                             <!-- Script para interactuar con la base de datos -->
+                            <table id="tabla-alumnos" border="1">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Materia</th>
+                                    <th>Paralelo</th>
+                                    <th>Docente</th>
+                                    <th>Ciclo</th>
+                                    <th>Jornada</th>
+                                    <th>Cedula</th>
+                                    <th>Direccion</th>
+                                    <th>Email</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </table>
                             <script type="module">
                                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
                                 import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
