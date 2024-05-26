@@ -105,17 +105,10 @@
                                                 <td>${alumno.cedula}</td>
                                                 <td>${alumno.direccion}</td>
                                                 <td>${alumno.email}</td>
-
-                                                
                                                 <td>
                                                     <a href="#" class="botones" onclick="eliminarAlumno('${doc.id}')">Eliminar</a>
                                                     <a href="#" class="botones" onclick="modificarAlumno('${doc.id}', '${alumno.nombre}', '${alumno.apellido}', '${alumno.materia}', '${alumno.paralelo}', '${alumno.docente}', '${alumno.ciclo}', '${alumno.jornada}', '${alumno.cedula}', '${alumno.direccion}', '${alumno.email}')">Modificar</a>
                                                 </td>
-                                                
-
-
-
-
                                             </tr>`;
                                         tablaAlumnos.insertAdjacentHTML('beforeend', fila);
                                     });
