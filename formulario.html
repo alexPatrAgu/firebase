@@ -71,8 +71,8 @@
                                 };
                                 const app = initializeApp(firebaseConfig);
                                 const db = getFirestore(app);
-
-                                //const listaAlumno = document.getElementById("lista-alumno");
+                                //MUESTRA LOS DATOS DEL CLIENTE
+                                const listaAlumno = document.getElementById("lista-alumno");
 
                                 // Función para renderizar los datos del alumno
                                 function renderAlumno(querySnapshot) {

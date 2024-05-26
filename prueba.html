@@ -51,7 +51,7 @@
                             </tr>
                         </table> 
                         <!-- Tabla para mostrar los datos ingresados -->
-                        <table border="1" align="center">
+                        <table border="1" align="center" id="tabla-alumnos">
                             <tr>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
@@ -65,42 +65,57 @@
                                 <th>Email</th>
                                 <th>Acciones</th>
                             </tr>
-                            <!-- Aquí se agregan las filas con los datos -->
-                            <tr>
-                                <td>Nombre1</td>
-                                <td>Apellido1</td>
-                                <td>Materia1</td>
-                                <td>Paralelo1</td>
-                                <td>Docente1</td>
-                                <td>Ciclo1</td>
-                                <td>Jornada1</td>
-                                <td>Cédula1</td>
-                                <td>Dirección1</td>
-                                <td>Email1</td>
-                                <td>
-                                    <button class="botones" onclick="eliminarAlumno(id)">Eliminar</button>
-                                    <button class="botones" onclick="modificarAlumno(id)">Modificar</button>
-                                </td>
-                            </tr>
-                            <!-- Repite estas filas para cada alumno -->
                         </table>
                         <!-- Script para interactuar con la base de datos -->
                         <script type="module">
                             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-                            import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+                            import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
                             // Configuración de Firebase
-                            // Your web app's Firebase configuration
-                            const firebaseConfig = {
-                                apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
-                                authDomain: "usuario-a1979.firebaseapp.com",
-                                projectId: "usuario-a1979",
-                                storageBucket: "usuario-a1979.appspot.com",
-                                messagingSenderId: "515804654653",
-                                appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
-                            };
+                                const firebaseConfig = {
+                                    apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
+                                    authDomain: "usuario-a1979.firebaseapp.com",
+                                    projectId: "usuario-a1979",
+                                    storageBucket: "usuario-a1979.appspot.com",
+                                    messagingSenderId: "515804654653",
+                                    appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
+                                };
                             const app = initializeApp(firebaseConfig);
                             const db = getFirestore(app);
+
+                            // Referencia a la colección "alumno"
+                            const alumnosRef = collection(db, "alumno");
+
+                            // Función para renderizar los datos del alumno
+                            function renderAlumnos(snapshot) {
+                                const tablaAlumnos = document.getElementById('tabla-alumnos');
+                                tablaAlumnos.innerHTML = ''; // Limpiamos la tabla antes de renderizar los datos
+
+                                snapshot.forEach(doc => {
+                                    const alumno = doc.data();
+                                    const fila = `
+                                        <tr>
+                                            <td>${alumno.nombre}</td>
+                                            <td>${alumno.apellido}</td>
+                                            <td>${alumno.materia}</td>
+                                            <td>${alumno.paralelo}</td>
+                                            <td>${alumno.docente}</td>
+                                            <td>${alumno.ciclo}</td>
+                                            <td>${alumno.jornada}</td>
+                                            <td>${alumno.cedula}</td>
+                                            <td>${alumno.direccion}</td>
+                                            <td>${alumno.email}</td>
+                                            <td>
+                                                <button class="botones" onclick="eliminarAlumno('${doc.id}')">Eliminar</button>
+                                                <button class="botones" onclick="modificarAlumno('${doc.id}')">Modificar</button>
+                                            </td>
+                                        </tr>`;
+                                    tablaAlumnos.insertAdjacentHTML('beforeend', fila);
+                                });
+                            }
+
+                            // Observador para actualizar la lista cuando se modifiquen los datos
+                            onSnapshot(alumnosRef, renderAlumnos);
 
                             // Función para eliminar un alumno
                             async function eliminarAlumno(id) {
