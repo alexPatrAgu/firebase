@@ -74,6 +74,7 @@
             <td colspan="7">&nbsp;&nbsp; </td>
         </tr>
     </table>
+    <div id="mensaje" style="text-align: center; font-size: 20px; color: green;"></div> <!-- Elemento para los mensajes -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
@@ -92,6 +93,7 @@
         const db = getFirestore(app);
 
         const tablaAlumnos = document.getElementById("tabla-alumnos");
+        const mensaje = document.getElementById("mensaje");
 
         function renderAlumno(querySnapshot) {
             tablaAlumnos.innerHTML = `
@@ -135,27 +137,38 @@
         const alumnoForm = document.getElementById("alumno");
         alumnoForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            await addDoc(collection(db, "alumno"), {
-                nombre: alumnoForm.nombre.value,
-                apellido: alumnoForm.apellido.value,
-                materia: alumnoForm.materia.value,
-                paralelo: alumnoForm.paralelo.value,
-                docente: alumnoForm.docente.value,
-                ciclo: alumnoForm.ciclo.value,
-                jornada: alumnoForm.jornada.value,
-                cedula: alumnoForm.cedula.value,
-                direccion: alumnoForm.direccion.value,
-                email: alumnoForm.email.value
-            });
-            alumnoForm.reset();
+            try {
+                await addDoc(collection(db, "alumno"), {
+                    nombre: alumnoForm.nombre.value,
+                    apellido: alumnoForm.apellido.value,
+                    materia: alumnoForm.materia.value,
+                    paralelo: alumnoForm.paralelo.value,
+                    docente: alumnoForm.docente.value,
+                    ciclo: alumnoForm.ciclo.value,
+                    jornada: alumnoForm.jornada.value,
+                    cedula: alumnoForm.cedula.value,
+                    direccion: alumnoForm.direccion.value,
+                    email: alumnoForm.email.value
+                });
+                alumnoForm.reset();
+                mensaje.style.color = "green";
+                mensaje.textContent = "¡Registro agregado correctamente!";
+            } catch (error) {
+                mensaje.style.color = "red";
+                mensaje.textContent = "Error al agregar el registro.";
+                console.error("Error al agregar el registro:", error);
+            }
         });
 
-        // Mueve las funciones eliminarAlumno y modificarAlumno al ámbito global
         window.eliminarAlumno = async function (id) {
             try {
                 await deleteDoc(doc(db, "alumno", id));
+                mensaje.style.color = "green";
+                mensaje.textContent = "¡Registro eliminado correctamente!";
             } catch (error) {
-                console.error("Error al eliminar el DATO:", error);
+                mensaje.style.color = "red";
+                mensaje.textContent = "Error al eliminar el registro.";
+                console.error("Error al eliminar el registro:", error);
             }
         };
 
@@ -184,8 +197,12 @@
                         direccion: nuevoDireccion,
                         email: nuevoEmail
                     });
+                    mensaje.style.color = "green";
+                    mensaje.textContent = "¡Registro modificado correctamente!";
                 } catch (error) {
-                    console.error("Error al modificar el DATO:", error);
+                    mensaje.style.color = "red";
+                    mensaje.textContent = "Error al modificar el registro.";
+                    console.error("Error al modificar el registro:", error);
                 }
             }
         };
