@@ -105,13 +105,68 @@
                                                 <td>${alumno.cedula}</td>
                                                 <td>${alumno.direccion}</td>
                                                 <td>${alumno.email}</td>
+
+                                                
+                                                <td>
+                                                    <a href="#" class="botones" onclick="eliminarAlumno('${doc.id}')">Eliminar</a>
+                                                    <a href="#" class="botones" onclick="modificarAlumno('${doc.id}')">Modificar</a>
+                                                </td>
+                                                
+
+
+
+
                                             </tr>`;
                                         tablaAlumnos.insertAdjacentHTML('beforeend', fila);
                                     });
                                 }
 
+                                function renderAlumno(querySnapshot) {
+                                    listaAlumno.innerHTML = "";
+                                    querySnapshot.forEach(doc => {
+                                        const alumno = doc.data();
+                                        const li = document.createElement("li");
+                                        li.textContent = `${alumno.nombre} - ${alumno.apellido}- ${alumno.materia}- ${alumno.paralelo}- ${alumno.docente}- ${alumno.ciclo}- ${alumno.jornada}- ${alumno.cedula}- ${alumno.direccion}- ${alumno.email}`;
+                                        const btnEliminar = document.createElement("button");
+                                        btnEliminar.textContent = "Eliminar";
+                                        btnEliminar.classList.add("botones"); // Agregar clase CSS "botones"
+                                        btnEliminar.addEventListener("click", () => {
+                                            eliminarAlumno(doc.id);
+                                        });
+
+                                        const btnModificar = document.createElement("button");
+                                        btnModificar.textContent = "Modificar";
+                                        btnModificar.classList.add("botones"); // Agregar clase CSS "botones"
+                                        btnModificar.addEventListener("click", () => {
+                                            modificarAlumno(doc.id, alumno.nombre, alumno.apellido, alumno.materia, alumno.paralelo, alumno.docente, alumno.ciclo, alumno.jornada, alumno.cedula, alumno.direccion, alumno.email);
+                                        });
+                                        li.appendChild(btnEliminar);
+                                        li.appendChild(btnModificar);
+                                        listaAlumno.appendChild(li);
+                                    });
+                                }
+
                                 // Observador para actualizar la lista cuando se modifiquen los datos
                                 onSnapshot(collection(db, "alumno"), renderAlumno);
+
+                                // Evento para agregar un nuevo alumno
+                                const alumnoForm = document.getElementById("alumno");
+                                alumnoForm.addEventListener("submit", async(e) => {
+                                    e.preventDefault();
+                                    await addDoc(collection(db, "alumno"), {
+                                        nombre: alumnoForm.nombre.value,
+                                        apellido: alumnoForm.apellido.value,
+                                        materia: alumnoForm.materia.value,
+                                        paralelo: alumnoForm.paralelo.value,
+                                        docente: alumnoForm.docente.value,
+                                        ciclo: alumnoForm.ciclo.value,
+                                        jornada: alumnoForm.jornada.value,
+                                        cedula: alumnoForm.cedula.value,
+                                        direccion: alumnoForm.direccion.value,
+                                        email: alumnoForm.email.value
+                                    });
+                                    alumnoForm.reset();
+                                });
 
                                 // Función para eliminar un alumno
                                 async function eliminarAlumno(id) {
@@ -123,11 +178,41 @@
                                 }
 
                                 // Función para modificar un alumno
-                                async function modificarAlumno(id) {
-                                    // Aquí puedes implementar la lógica para modificar un alumno
-                                    console.log("Modificar alumno con ID:", id);
+                                async function modificarAlumno(id, nombreActual, apellidoActual, materiaActual, paraleloActual, docenteActual, cicloActual, jornadaActual, cedulaActual, direccionActual, emailActual) 
+                                {
+                                    const nuevoNombre = prompt("Ingrese el nuevo nombre:", nombreActual);
+                                    const nuevoApellido = prompt("Ingrese el nuevo apellido:", apellidoActual);
+                                    const nuevoMateria = prompt("Ingrese la nueva materia:", materiaActual);
+                                    const nuevoParalelo = prompt("Ingrese el nuevo paralelo:", paraleloActual);
+                                    const nuevoDocente = prompt("Ingrese el nuevo docente:", docenteActual);
+                                    const nuevoCiclo = prompt("Ingrese el nuevo ciclo:", cicloActual);
+                                    const nuevoJornada = prompt("Ingrese la nueva jornada:", jornadaActual);
+                                    const nuevoCedula = prompt("Ingrese la cedula nuevamente:", cedulaActual);
+                                    const nuevoDireccion = prompt("Ingrese la nueva direccion:", direccionActual);
+                                    const nuevoEmail = prompt("Ingrese el nuevo email:", emailActual);
+                                    if (nuevoNombre !== null && nuevoApellido !== null) {
+                                        try {
+                                            await updateDoc(doc(db, "alumno", id), {  
+                                                nombre: nuevoNombre,  
+                                                apellido: nuevoApellido,  
+                                                materia: nuevoMateria,  
+                                                paralelo: nuevoParalelo,  
+                                                docente: nuevoDocente,  
+                                                ciclo: nuevoCiclo,  
+                                                jornada: nuevoJornada,  
+                                                cedula: nuevoCedula,  
+                                                direccion: nuevoDireccion,  
+                                                email: nuevoEmail  
+                                            });
+                                        } catch (error) {
+                                            console.error("Error al modificar el DATO:", error);
+                                        }
+                                    }
                                 }
+
                             </script>
+
+                            
                         </form>  
                     </table>  
                 </tr>
