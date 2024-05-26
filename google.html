@@ -15,7 +15,7 @@
                     <tr>
                         <header>
                             <nav class="navegacion">
-                                <ul  align="center" class="menu">
+                                <ul align="center" class="menu">
                                     <li><a href="index.html"><h3>INICIO</h3></a></li>
                                 </ul>
                             </nav>
@@ -37,7 +37,7 @@
                                     <td colspan="8" align="center"><img src="imagenes/Lectura_1.jpg" class="portada"> </td>
                                 </tr> 
                                 <tr>
-                                    <td><H1 align="center" class="textoPImag">DATOS DEL FORMULARIO</H1></td>
+                                    <td><h1 align="center" class="textoPImag">DATOS DEL FORMULARIO</h1></td>
                                 </tr>
                             </table> 
                             <form id="alumno">
@@ -78,23 +78,37 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
         // Your web app's Firebase configuration
         const firebaseConfig = {
-                                    apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
-                                    authDomain: "usuario-a1979.firebaseapp.com",
-                                    projectId: "usuario-a1979",
-                                    storageBucket: "usuario-a1979.appspot.com",
-                                    messagingSenderId: "515804654653",
-                                    appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
-                                };  
-        
+            apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
+            authDomain: "usuario-a1979.firebaseapp.com",
+            projectId: "usuario-a1979",
+            storageBucket: "usuario-a1979.appspot.com",
+            messagingSenderId: "515804654653",
+            appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
+        };
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
         const tablaAlumnos = document.getElementById("tabla-alumnos");
 
         function renderAlumno(querySnapshot) {
-            tablaAlumnos.innerHTML = "";
+            tablaAlumnos.innerHTML = `
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Materia</th>
+                    <th>Paralelo</th>
+                    <th>Docente</th>
+                    <th>Ciclo</th>
+                    <th>Jornada</th>
+                    <th>Cedula</th>
+                    <th>Direccion</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>`;
             querySnapshot.forEach(doc => {
                 const alumno = doc.data();
                 const fila = `
@@ -110,8 +124,8 @@
                         <td>${alumno.direccion}</td>
                         <td>${alumno.email}</td>
                         <td>
-                            <a href="#" class="botones" onclick="eliminarAlumno('${doc.id}')">Eliminar</a>
-                            <a href="#" class="botones" onclick="modificarAlumno('${doc.id}', '${alumno.nombre}', '${alumno.apellido}', '${alumno.materia}', '${alumno.paralelo}', '${alumno.docente}', '${alumno.ciclo}', '${alumno.jornada}', '${alumno.cedula}', '${alumno.direccion}', '${alumno.email}')">Modificar</a>
+                            <button class="botones" onclick="eliminarAlumno('${doc.id}')">Eliminar</button>
+                            <button class="botones" onclick="modificarAlumno('${doc.id}', '${alumno.nombre}', '${alumno.apellido}', '${alumno.materia}', '${alumno.paralelo}', '${alumno.docente}', '${alumno.ciclo}', '${alumno.jornada}', '${alumno.cedula}', '${alumno.direccion}', '${alumno.email}')">Modificar</button>
                         </td>
                     </tr>`;
                 tablaAlumnos.insertAdjacentHTML('beforeend', fila);
@@ -121,7 +135,7 @@
         onSnapshot(collection(db, "alumno"), renderAlumno);
 
         const alumnoForm = document.getElementById("alumno");
-        alumnoForm.addEventListener("submit", async(e) => {
+        alumnoForm.addEventListener("submit", async (e) => {
             e.preventDefault();
             await addDoc(collection(db, "alumno"), {
                 nombre: alumnoForm.nombre.value,
@@ -138,15 +152,16 @@
             alumnoForm.reset();
         });
 
-        async function eliminarAlumno(id) {
+        // Mueve las funciones eliminarAlumno y modificarAlumno al ámbito global
+        window.eliminarAlumno = async function (id) {
             try {
                 await deleteDoc(doc(db, "alumno", id));
             } catch (error) {
                 console.error("Error al eliminar el DATO:", error);
             }
-        }
+        };
 
-        async function modificarAlumno(id, nombreActual, apellidoActual, materiaActual, paraleloActual, docenteActual, cicloActual, jornadaActual, cedulaActual, direccionActual, emailActual) {
+        window.modificarAlumno = async function (id, nombreActual, apellidoActual, materiaActual, paraleloActual, docenteActual, cicloActual, jornadaActual, cedulaActual, direccionActual, emailActual) {
             const nuevoNombre = prompt("Ingrese el nuevo nombre:", nombreActual);
             const nuevoApellido = prompt("Ingrese el nuevo apellido:", apellidoActual);
             const nuevoMateria = prompt("Ingrese la nueva materia:", materiaActual);
@@ -159,23 +174,23 @@
             const nuevoEmail = prompt("Ingrese el nuevo email:", emailActual);
             if (nuevoNombre !== null && nuevoApellido !== null) {
                 try {
-                    await updateDoc(doc(db, "alumno", id), {  
-                        nombre: nuevoNombre,  
-                        apellido: nuevoApellido,  
-                        materia: nuevoMateria,  
-                        paralelo: nuevoParalelo,  
-                        docente: nuevoDocente,  
-                        ciclo: nuevoCiclo,  
-                        jornada: nuevoJornada,  
-                        cedula: nuevoCedula,  
-                        direccion: nuevoDireccion,  
-                        email: nuevoEmail  
+                    await updateDoc(doc(db, "alumno", id), {
+                        nombre: nuevoNombre,
+                        apellido: nuevoApellido,
+                        materia: nuevoMateria,
+                        paralelo: nuevoParalelo,
+                        docente: nuevoDocente,
+                        ciclo: nuevoCiclo,
+                        jornada: nuevoJornada,
+                        cedula: nuevoCedula,
+                        direccion: nuevoDireccion,
+                        email: nuevoEmail
                     });
                 } catch (error) {
                     console.error("Error al modificar el DATO:", error);
                 }
             }
-        }
+        };
     </script>
 </body>
 </html>
