@@ -1,170 +1,127 @@
-<!DOCTYPE html>
 <html>
-<!--TITULO DE PAGINA-->
-<head>
-    <title>BASE DE DATOS</title> 
-    <!--APLICACION DE CSS-->
-    <!-- Enlaces a los archivos CSS -->
-    <link href="css/menu.css" rel="stylesheet">
-    <link href="css/estyle2.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link href="css/formulario.css" rel="stylesheet">
-</head>
-<!--COLOR DEL CUERPO DE LA PAGINA-->
-<body bgcolor="#FFFFFF">
-    <!--TABLA PRINCIPAL-->
-    <!--Centra; color-->
-    <table border="0" width="95%" align="center" bgcolor="#0B73F8" class="tabla_1" padding="auto">
-        <!--Tabla menú opciones_1-->
-        <tr>
-            <td colspan="8" >
-                <table>
+    <!--TITULO DE PAGINA-->
+    <head>
+        <title>INGRESO DATOS FORMULARIO</title> 
+        <!--APLICACION DE CSS-->
+        <link href="css/menu.css" rel="stylesheet">
+        <link href="css/estyle2.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/formulario.css" rel="stylesheet">
+        <link href="css/cuerpo.css" rel="stylesheet">
+    </head>
+        <!--COLOR DEL CUERPO DE LA PAGINA-->
+    <body bgcolor="#FFFFFF">
+        <!--TABLA PRINCIPAL-->
+        <!--Centra; color-->
+        <table border="0" width="95%" align="center" bgcolor="#0B73F8" class="tabla_1" padding="auto">
+            <!--Tabla menú opciones_1-->
+            <tr>
+                <td colspan="8" >
+                    <table>
                     <tr>
                         <!--Menu desplegable con listas-->
                         <header>
                             <nav class="navegacion">
                                 <ul  align="center" class="menu">
-                                    <li><a href="index.html"><h3>INICIO</h3></a></li>
-                                    <!-- Enlace de menú para ir a la página de inicio -->
+                                    <li><a href="formulario.html"><h3>BASE DE DATOS</h3></a>
                                 </ul>
                             </nav>
                         </header>
                     </tr> 
-                </table>      
-            </td>
-        </tr>
-        <!--TABLA2--> 
-        <td bgcolor="white" align="center" class="tabla_1">
-            <table border="0">
-                <tr>
-                    <td colspan="7">&nbsp;&nbsp; </td>
-                </tr>
-                <!--IMAGEN PORTADA INICAL--> 
-                <tr>
-                    <td>
-                        <table border="0" align="center">
-                            <tr>
-                                <td colspan="8" align="center"><img src="imagenes/Lectura_1.jpg" class="portada"> </td>
-                            </tr> 
-                            <tr>
-                                <td><H1 align="center" class="textoPImag">DATOS DEL FORMULARIO</H1></td>
-                            </tr>
-                        </table> 
-                        <!-- Formulario de ingreso de datos -->
+                    </table>      
+                </td>
+            </tr>
+            <!--TABLA_2--> 
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <!--FORMULARIO--> 
+            <tr>
+                <td colspan="1" class="tabla_1" align="center">           
+                    <section class="formulario_1">
+                        <img src="imagenes/Formulario_Imag.jpeg" class="imagen_formulario">
+                        <br>
+                        <br>
+                        <h4 align="justify" class="parrafos"> "POR EL BIENESTAR DE LA SOCIEDAD, CREANDO LIDERES Y OBRADORES DE LA EFICACIA PARA QUE PUEDAN CAMBIAR EL MUNDO!" </h4>
+                        <h4 align="center">Bienvenido/a</h4>
+                        <h4 align="center">Ingresa tus datos</h4>
                         <form id="alumno">
-                            <!-- Lista para mostrar los datos ingresados -->
-                            <table id="tabla-alumnos" border="1">
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>Materia</th>
-                                    <th>Paralelo</th>
-                                    <th>Docente</th>
-                                    <th>Ciclo</th>
-                                    <th>Jornada</th>
-                                    <th>Cedula</th>
-                                    <th>Direccion</th>
-                                    <th>Email</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </table>
-                            <!-- Script para interactuar con la base de datos -->
+                            <input class="controles" type="text" id="nombre" placeholder="INSERTA EL NOMBRE DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="apellido" placeholder="INSERTAR EL APELLIDO DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="materia" placeholder="INSERTAR LA MATERIA DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="paralelo" placeholder="INSERTAR EL PARALELO DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="docente" placeholder="INSERTAR EL DOCENTE DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="ciclo" placeholder="INSERTAR EL CICLO DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="jornada" placeholder="INSERTAR LA JORNADA DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="cedula" placeholder="INSERTAR LA CEDULA DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="direccion" placeholder="INSERTAR LA DIRECCION DEL ESTUDIANTE">
+                            <input class="controles" type="text" id="email" placeholder="INSERTAR EL E-MAIL DEL ESTUDIANTE">
+                            <button class="botones" type="submit">Agregar</button>
+                        </form>
+
+
+
+                        
+                        
+                        <form id="alumno">
+                            <ul id="lista-alumno"></ul>
                             <script type="module">
                                 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
                                 import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
+    
                                 // Configuración de Firebase
                                 // Your web app's Firebase configuration
                                 const firebaseConfig = {
-                                    apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
-                                    authDomain: "usuario-a1979.firebaseapp.com",
-                                    projectId: "usuario-a1979",
-                                    storageBucket: "usuario-a1979.appspot.com",
-                                    messagingSenderId: "515804654653",
-                                    appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
+                                apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
+                                authDomain: "usuario-a1979.firebaseapp.com",
+                                projectId: "usuario-a1979",
+                                storageBucket: "usuario-a1979.appspot.com",
+                                messagingSenderId: "515804654653",
+                                appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
                                 };
                                 const app = initializeApp(firebaseConfig);
                                 const db = getFirestore(app);
-
-                                const tablaAlumnos = document.getElementById("tabla-alumnos");
-
-                                // Función para renderizar los datos del alumno
+    
+                                const listaAlumno = document.getElementById("lista-alumno");
+    
                                 function renderAlumno(querySnapshot) {
-                                    tablaAlumnos.innerHTML = "";
+                                    listaAlumno.innerHTML = "";
                                     querySnapshot.forEach(doc => {
                                         const alumno = doc.data();
-                                        const fila = `
-                                            <tr>
-                                                <td>${alumno.nombre}</td>
-                                                <td>${alumno.apellido}</td>
-                                                <td>${alumno.materia}</td>
-                                                <td>${alumno.paralelo}</td>
-                                                <td>${alumno.docente}</td>
-                                                <td>${alumno.ciclo}</td>
-                                                <td>${alumno.jornada}</td>
-                                                <td>${alumno.cedula}</td>
-                                                <td>${alumno.direccion}</td>
-                                                <td>${alumno.email}</td>
-                                                <td>
-                                                    <a href="#" class="botones eliminar" data-id="${doc.id}">Eliminar</a>
-                                                    <a href="#" class="botones modificar" data-id="${doc.id}">Modificar</a>
-                                                </td>
-                                            </tr>`;
-                                        tablaAlumnos.insertAdjacentHTML('beforeend', fila);
+                                        const li = document.createElement("li");
+                                        li.textContent = `${alumno.nombre} - ${alumno.apellido}- ${alumno.materia}- ${alumno.paralelo}- ${alumno.docente}- ${alumno.ciclo}- ${alumno.jornada}- ${alumno.cedula}- ${alumno.direccion}- ${alumno.email}`;
                                     });
                                 }
-
-                                // Observador para actualizar la lista cuando se modifiquen los datos
+    
                                 onSnapshot(collection(db, "alumno"), renderAlumno);
-
-                                // Agregamos un evento de clic a la tabla para delegación de eventos
-                                tablaAlumnos.addEventListener('click', async (e) => {
-                                    if (e.target.classList.contains('eliminar')) {
-                                        const id = e.target.dataset.id;
-                                        await eliminarAlumno(id);
-                                    } else if (e.target.classList.contains('modificar')) {
-                                        const id = e.target.dataset.id;
-                                        await modificarAlumno(id);
-                                    }
+    
+                                const alumnoForm = document.getElementById("alumno");
+                                alumnoForm.addEventListener("submit", async(e) => {
+                                    e.preventDefault();
+                                    await addDoc(collection(db, "alumno"), {
+                                        nombre: alumnoForm.nombre.value,
+                                        apellido: alumnoForm.apellido.value,
+                                        materia: alumnoForm.materia.value,
+                                        paralelo: alumnoForm.paralelo.value,
+                                        docente: alumnoForm.docente.value,
+                                        ciclo: alumnoForm.ciclo.value,
+                                        jornada: alumnoForm.jornada.value,
+                                        cedula: alumnoForm.cedula.value,
+                                        direccion: alumnoForm.direccion.value,
+                                        email: alumnoForm.email.value
+                                    });
+                                    alumnoForm.reset();
                                 });
-
-                                // Función para eliminar un alumno
-                                async function eliminarAlumno(id) {
-                                    try {
-                                        await deleteDoc(doc(db, "alumno", id));
-                                    } catch (error) {
-                                        console.error("Error al eliminar el DATO:", error);
-                                    }
-                                }
-
-                                // Función para modificar un alumno
-                                async function modificarAlumno(id) {
-                                    // Aquí puedes implementar la lógica para modificar un alumno
-                                    console.log("Modificar alumno con ID:", id);
-                                }
                             </script>
                         </form>  
-                    </table>  
-                </tr>
-            </td>
-        </tr>
-        <!--IMAGEN PORTADA FINAL--> 
-        <tr>
-            <td>
-                <table border="0" align="center">
-                    <tr>
-                        <td colspan="8" align="center"><img src="imagenes/PortadaFinal.jpeg" class="portada"> </td>
-                    </tr> 
-                </table>      
-            </td>
-        </tr>
-        <tr>
-            <td colspan="7">&nbsp;&nbsp; </td>
-        </tr>
-    </table>
-    <!--TABLA PIE DEL DISEÑO-->
-    <tr>
-        <td colspan="2">&nbsp;</td>
-    </tr>
-</body>
+                    </section>
+                </td>
+            </tr>
+            
+            <!--TABLA PIE DEL DISEÑO-->
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+        </table>
+    </body>
 </html>
