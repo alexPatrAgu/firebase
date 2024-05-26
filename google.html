@@ -90,7 +90,6 @@
                                 const listaAlumno = document.getElementById("lista-alumno");
                                 // Función para renderizar los datos del alumno
                                 function renderAlumno(querySnapshot) {
-                                    tablaAlumnos.innerHTML = "";
                                     listaAlumno.innerHTML = "";
                                     querySnapshot.forEach(doc => {
                                         const alumno = doc.data();
