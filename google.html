@@ -86,11 +86,11 @@
                                 const app = initializeApp(firebaseConfig);
                                 const db = getFirestore(app);
 
-                                const tablaAlumnos = document.getElementById("tabla-alumnos");
+                                const listaAlumno = document.getElementById("lista-alumno");
 
                                 // Función para renderizar los datos del alumno
                                 function renderAlumno(querySnapshot) {
-                                    tablaAlumnos.innerHTML = "";
+                                    listaAlumno.innerHTML = "";
                                     querySnapshot.forEach(doc => {
                                         const alumno = doc.data();
                                         const fila = `
@@ -117,7 +117,7 @@
 
 
                                             </tr>`;
-                                        tablaAlumnos.insertAdjacentHTML('beforeend', fila);
+                                            listaAlumno.insertAdjacentHTML('beforeend', fila);
                                     });
                                 }
 
