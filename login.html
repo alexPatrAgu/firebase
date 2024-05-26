@@ -45,71 +45,109 @@
                         <h4 align="justify" class="parrafos"> "POR EL BIENESTAR DE LA SOCIEDAD, CREANDO LIDERES Y OBRADORES DE LA EFICACIA PARA QUE PUEDAN CAMBIAR EL MUNDO!" </h4>
                         <h4 align="center">Bienvenido/a</h4>
                         <h4 align="center">Ingresa tus datos</h4>
-                        <form id="alumno">
-                            <input class="controles" type="text" id="usuario" placeholder="INSERTA EL NOMBRE DE USUARIO">
+                        <form id="formulario">
+                            <input class="controles" type="text" id="email" placeholder="INSERTA EL E-MAIL">
                             <input class="controles" type="text" id="contraseña" placeholder="INSERTAR LA CONTRASEÑA">
-                            <button class="botones" type="submit">Iniciar sesion</button>
-                            <button class="botones" type="submit">registrarse</button>
+                            <button class="botones" type="button" id="iniciar_sesion">Iniciar sesion</button>
+                            <button class="botones" type="button" id="registrarse">registrarse</button>
+                            <button class="botones" type="button" id="sesion_google">Iniciar sesion con google</button>
                         </form>                      
-                        <form id="alumno">
-                            <ul id="lista-alumno"></ul>
-                            <script type="module">
-                                import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-                                import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-    
-                                // Configuración de Firebase
-                                // Your web app's Firebase configuration
-                                const firebaseConfig = {
-                                apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
-                                authDomain: "usuario-a1979.firebaseapp.com",
-                                projectId: "usuario-a1979",
-                                storageBucket: "usuario-a1979.appspot.com",
-                                messagingSenderId: "515804654653",
-                                appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
-                                };
-                                const app = initializeApp(firebaseConfig);
-                                const db = getFirestore(app);
-    
-                                const listaAlumno = document.getElementById("lista-alumno");
-    
-                                function renderAlumno(querySnapshot) {
-                                    listaAlumno.innerHTML = "";
-                                    querySnapshot.forEach(doc => {
-                                        const alumno = doc.data();
-                                        const li = document.createElement("li");
-                                        li.textContent = `${alumno.nombre} - ${alumno.apellido}- ${alumno.materia}- ${alumno.paralelo}- ${alumno.docente}- ${alumno.ciclo}- ${alumno.jornada}- ${alumno.cedula}- ${alumno.direccion}- ${alumno.email}`;
-                                    });
-                                }
-    
-                                onSnapshot(collection(db, "alumno"), renderAlumno);
-    
-                                const alumnoForm = document.getElementById("alumno");
-                                alumnoForm.addEventListener("submit", async(e) => {
-                                    e.preventDefault();
-                                    await addDoc(collection(db, "alumno"), {
-                                        nombre: alumnoForm.nombre.value,
-                                        apellido: alumnoForm.apellido.value,
-                                        materia: alumnoForm.materia.value,
-                                        paralelo: alumnoForm.paralelo.value,
-                                        docente: alumnoForm.docente.value,
-                                        ciclo: alumnoForm.ciclo.value,
-                                        jornada: alumnoForm.jornada.value,
-                                        cedula: alumnoForm.cedula.value,
-                                        direccion: alumnoForm.direccion.value,
-                                        email: alumnoForm.email.value
-                                    });
-                                    alumnoForm.reset();
-                                });
-                            </script>
-                        </form>  
+                        
                     </section>
                 </td>
             </tr>
-            
             <!--TABLA PIE DEL DISEÑO-->
             <tr>
                 <td colspan="2">&nbsp;</td>
             </tr>
         </table>
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+            import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
+    
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
+                authDomain: "usuario-a1979.firebaseapp.com",
+                projectId: "usuario-a1979",
+                storageBucket: "usuario-a1979.appspot.com",
+                messagingSenderId: "515804654653",
+                appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
+            };
+
+    
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const auth = getAuth(app);
+    
+            // Initialize Google Auth provider
+            const provider = new GoogleAuthProvider();
+    
+            document.addEventListener('DOMContentLoaded', () => {
+                const authformulario = document.getElementById('formulario');
+                const email = document.getElementById('email');
+                const contraseña = document.getElementById('contraseña');
+                const iniciar_sesion = document.getElementById('iniciar_sesion');
+                const resgitrarse = document.getElementById('registrarse');
+                const sesion_google = document.getElementById('sesion_google');
+
+                //CAMBIO
+                // Iniciar sesion email
+                iniciar_sesion.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const email = email.value;
+                    const contraseña = contraseña.value;
+    
+                    signInWithEmailAndPassword(auth, email , contraseña)
+                        .then((userCredential) => {
+                            const user = userCredential.user;
+                            console.log('Usuario ingresado:', user);
+                            // Redirigir a pacientes.html
+                            window.location.href = 'index.html';
+                        })
+                        .catch((error) => {
+                            console.error('Error durante la autenticación:', error);
+                            alert(Error: ${error.message});
+                        });
+                });
+                //CAMBIO
+    
+                // Registrar sesion email
+                registrarse.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const email = email.value;
+                    const contraseña = contraseña.value;
+    
+                    createUserWithEmailAndPassword(auth, email, contraseña)
+                        .then((userCredential) => {
+                            const user = userCredential.user;
+                            console.log('Usuario registrado:', user);
+                            
+                        })
+                        .catch((error) => {
+                            console.error('Error durante el registro:', error);
+                            alert(`Error: ${error.message}`);
+                        });
+                });
+    
+                // Google login functionality
+                sesion_google.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    signInWithPopup(auth, provider)
+                        .then((result) => {
+                            const user = result.user;
+                            console.log('Usuario ingresado con Google:', user);
+                            // Redirigir a pacientes.html
+                            window.location.href = 'index.html';
+                        })
+                        .catch((error) => {
+                            console.error('Error durante la autenticación con Google:', error);
+                            alert(`Error: ${error.message}`);
+                        });
+                });
+            });
+        </script>
+
     </body>
 </html>
