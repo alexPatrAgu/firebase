@@ -92,34 +92,31 @@
                                                 <td>${alumno.email}</td>
                                             </tr>`;
                                         tablaAlumnos.insertAdjacentHTML('beforeend', fila);
+                                        listaAlumno.innerHTML = "";
+                                        querySnapshot.forEach(doc => {
+                                            const alumno = doc.data();
+                                            const li = document.createElement("li");
+                                            li.textContent = `${alumno.nombre} - ${alumno.apellido}- ${alumno.materia}- ${alumno.paralelo}- ${alumno.docente}- ${alumno.ciclo}- ${alumno.jornada}- ${alumno.cedula}- ${alumno.direccion}- ${alumno.email}`;
+                                            const btnEliminar = document.createElement("button");
+                                            btnEliminar.textContent = "Eliminar";
+                                            btnEliminar.classList.add("botones"); // Agregar clase CSS "botones"
+                                            btnEliminar.addEventListener("click", () => {
+                                                eliminarAlumno(doc.id);
+                                            });
+
+                                            const btnModificar = document.createElement("button");
+                                            btnModificar.textContent = "Modificar";
+                                            btnModificar.classList.add("botones"); // Agregar clase CSS "botones"
+                                            btnModificar.addEventListener("click", () => {
+                                                modificarAlumno(doc.id, alumno.nombre, alumno.apellido, alumno.materia, alumno.paralelo, alumno.docente, alumno.ciclo, alumno.jornada, alumno.cedula, alumno.direccion, alumno.email);
+                                            });
+                                            li.appendChild(btnEliminar);
+                                            li.appendChild(btnModificar);
+                                            listaAlumno.appendChild(li);
+                                        });
                                     });
                                 }
 
-                                // Función para renderizar los datos del alumno
-                                function renderAlumno(querySnapshot) {
-                                    listaAlumno.innerHTML = "";
-                                    querySnapshot.forEach(doc => {
-                                        const alumno = doc.data();
-                                        const li = document.createElement("li");
-                                        li.textContent = `${alumno.nombre} - ${alumno.apellido}- ${alumno.materia}- ${alumno.paralelo}- ${alumno.docente}- ${alumno.ciclo}- ${alumno.jornada}- ${alumno.cedula}- ${alumno.direccion}- ${alumno.email}`;
-                                        const btnEliminar = document.createElement("button");
-                                        btnEliminar.textContent = "Eliminar";
-                                        btnEliminar.classList.add("botones"); // Agregar clase CSS "botones"
-                                        btnEliminar.addEventListener("click", () => {
-                                            eliminarAlumno(doc.id);
-                                        });
-
-                                        const btnModificar = document.createElement("button");
-                                        btnModificar.textContent = "Modificar";
-                                        btnModificar.classList.add("botones"); // Agregar clase CSS "botones"
-                                        btnModificar.addEventListener("click", () => {
-                                            modificarAlumno(doc.id, alumno.nombre, alumno.apellido, alumno.materia, alumno.paralelo, alumno.docente, alumno.ciclo, alumno.jornada, alumno.cedula, alumno.direccion, alumno.email);
-                                        });
-                                        li.appendChild(btnEliminar);
-                                        li.appendChild(btnModificar);
-                                        listaAlumno.appendChild(li);
-                                    });
-                                }
 
                                 // Observador para actualizar la lista cuando se modifiquen los datos
                                 onSnapshot(collection(db, "alumno"), renderAlumno);
