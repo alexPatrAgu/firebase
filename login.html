@@ -1,25 +1,18 @@
 <html>
-    <!--TITULO DE PAGINA-->
     <head>
         <title>INGRESO DATOS FORMULARIO</title> 
-        <!--APLICACION DE CSS-->
         <link href="css/menu.css" rel="stylesheet">
         <link href="css/estyle2.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
         <link href="css/formulario.css" rel="stylesheet">
         <link href="css/cuerpo.css" rel="stylesheet">
     </head>
-    <!--COLOR DEL CUERPO DE LA PAGINA-->
     <body bgcolor="#FFFFFF">
-        <!--TABLA PRINCIPAL-->
-        <!--Centra; color-->
         <table border="0" width="95%" align="center" bgcolor="#0B73F8" class="tabla_1" padding="auto">
-            <!--Tabla menú opciones_1-->
             <tr>
                 <td colspan="8" >
                     <table>
                     <tr>
-                        <!--Menu desplegable con listas-->
                         <header>
                             <nav class="navegacion">
                                 <ul  align="center" class="menu">
@@ -31,11 +24,9 @@
                     </table>      
                 </td>
             </tr>
-            <!--TABLA_2--> 
             <tr>
                 <td colspan="2">&nbsp;</td>
             </tr>
-            <!--FORMULARIO--> 
             <tr>
                 <td colspan="1" class="tabla_1" align="center">           
                     <section class="formulario_1">
@@ -48,25 +39,22 @@
                         <form id="formulario">
                             <input class="controles" type="text" id="email" placeholder="INSERTA EL E-MAIL">
                             <input class="controles" type="text" id="contraseña" placeholder="INSERTAR LA CONTRASEÑA">
-                            <button class="botones" type="button" id="iniciar_sesion">Iniciar sesion</button>
-                            <button class="botones" type="button" id="registrarse">registrarse</button>
-                            <button class="botones" type="button" id="sesion_google">Iniciar sesion con google</button>
+                            <button class="botones" type="submit" id="iniciar_sesion">Iniciar sesion</button>
+                            <button class="botones" type="submit" id="registrarse">Registrarse</button>
+                            <button class="botones" type="button" id="sesion_google">Iniciar sesión con Google</button>
                         </form>                      
                         
                     </section>
                 </td>
             </tr>
-            <!--TABLA PIE DEL DISEÑO-->
             <tr>
                 <td colspan="2">&nbsp;</td>
             </tr>
         </table>
         <script type="module">
-            // Import the functions you need from the SDKs you need
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
             import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
-    
-            // Your web app's Firebase configuration
+
             const firebaseConfig = {
                 apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
                 authDomain: "usuario-a1979.firebaseapp.com",
@@ -76,12 +64,8 @@
                 appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
             };
 
-    
-            // Initialize Firebase
             const app = initializeApp(firebaseConfig);
             const auth = getAuth(app);
-    
-            // Initialize Google Auth provider
             const provider = new GoogleAuthProvider();
     
             document.addEventListener('DOMContentLoaded', () => {
@@ -91,17 +75,16 @@
                 const registrarse = document.getElementById('registrarse');
                 const sesion_google = document.getElementById('sesion_google');
 
-                // Iniciar sesion email
-                iniciar_sesion.addEventListener('click', (e) => {
+                document.getElementById('formulario').addEventListener('submit', (e) => {
                     e.preventDefault();
+
                     const email = emailField.value;
                     const contraseña = passwordField.value;
-    
+
                     signInWithEmailAndPassword(auth, email , contraseña)
                         .then((userCredential) => {
                             const user = userCredential.user;
                             console.log('Usuario ingresado:', user);
-                            // Redirigir a pacientes.html
                             window.location.href = 'index.html';
                         })
                         .catch((error) => {
@@ -110,7 +93,6 @@
                         });
                 });
 
-                // Registrar sesion email
                 registrarse.addEventListener('click', (e) => {
                     e.preventDefault();
                     const email = emailField.value;
@@ -120,7 +102,6 @@
                         .then((userCredential) => {
                             const user = userCredential.user;
                             console.log('Usuario registrado:', user);
-                            // Redirigir a index.html si es necesario
                             window.location.href = 'index.html';
                         })
                         .catch((error) => {
@@ -129,14 +110,12 @@
                         });
                 });
     
-                // Google login functionality
                 sesion_google.addEventListener('click', (e) => {
                     e.preventDefault();
                     signInWithPopup(auth, provider)
                         .then((result) => {
                             const user = result.user;
                             console.log('Usuario ingresado con Google:', user);
-                            // Redirigir a pacientes.html
                             window.location.href = 'index.html';
                         })
                         .catch((error) => {
