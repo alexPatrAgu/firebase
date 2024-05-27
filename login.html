@@ -52,9 +52,11 @@
             </tr>
         </table>
         <script type="module">
+            // Import the functions you need from the SDKs you need
             import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
             import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
-
+    
+            // Your web app's Firebase configuration
             const firebaseConfig = {
                 apiKey: "AIzaSyAkV8sXa7n5qe6luXOtcxHhgdd1_EjX04s",
                 authDomain: "usuario-a1979.firebaseapp.com",
@@ -64,8 +66,12 @@
                 appId: "1:515804654653:web:90bfd1725d1eddd1b48e54"
             };
 
+    
+            // Initialize Firebase
             const app = initializeApp(firebaseConfig);
             const auth = getAuth(app);
+    
+            // Initialize Google Auth provider
             const provider = new GoogleAuthProvider();
     
             document.addEventListener('DOMContentLoaded', () => {
@@ -75,16 +81,17 @@
                 const registrarse = document.getElementById('registrarse');
                 const sesion_google = document.getElementById('sesion_google');
 
-                document.getElementById('formulario').addEventListener('submit', (e) => {
+                // Iniciar sesion email
+                iniciar_sesion.addEventListener('click', (e) => {
                     e.preventDefault();
-
                     const email = emailField.value;
                     const contraseña = passwordField.value;
-
+    
                     signInWithEmailAndPassword(auth, email , contraseña)
                         .then((userCredential) => {
                             const user = userCredential.user;
                             console.log('Usuario ingresado:', user);
+                            // Redirigir a pacientes.html
                             window.location.href = 'index.html';
                         })
                         .catch((error) => {
@@ -93,6 +100,7 @@
                         });
                 });
 
+                // Registrar sesion email
                 registrarse.addEventListener('click', (e) => {
                     e.preventDefault();
                     const email = emailField.value;
@@ -102,6 +110,7 @@
                         .then((userCredential) => {
                             const user = userCredential.user;
                             console.log('Usuario registrado:', user);
+                            // Redirigir a index.html si es necesario
                             window.location.href = 'index.html';
                         })
                         .catch((error) => {
@@ -110,12 +119,14 @@
                         });
                 });
     
+                // Google login functionality
                 sesion_google.addEventListener('click', (e) => {
                     e.preventDefault();
                     signInWithPopup(auth, provider)
                         .then((result) => {
                             const user = result.user;
                             console.log('Usuario ingresado con Google:', user);
+                            // Redirigir a pacientes.html
                             window.location.href = 'index.html';
                         })
                         .catch((error) => {
