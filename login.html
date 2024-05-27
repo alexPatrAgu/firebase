@@ -112,23 +112,24 @@
                         });
                 });
                 //CAMBIO
+
                 // Registrar sesion email
                 registrarse.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const email = email.value;
-                    const contraseña = contraseña.value;
-    
-                    createUserWithEmailAndPassword(auth, email, contraseña)
-                        .then((userCredential) => {
-                            const user = userCredential.user;
-                            console.log('Usuario registrado:', user);
-                            
-                        })
-                        .catch((error) => {
-                            console.error('Error durante el registro:', error);
-                            alert(`Error: ${error.message}`);
-                        });
-                });
+                e.preventDefault();
+                const email = email.value;
+                const contraseña= contraseña.value;
+
+                createUserWithEmailAndPassword(auth, email, contraseña)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        console.log('Usuario registrado:', user);
+                        
+                    })
+                    .catch((error) => {
+                        console.error('Error durante el registro:', error);
+                        alert(`Error: ${error.message}`);
+                    });
+            });
     
                 // Google login functionality
                 sesion_google.addEventListener('click', (e) => {
