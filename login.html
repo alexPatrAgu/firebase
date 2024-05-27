@@ -9,7 +9,7 @@
         <link href="css/formulario.css" rel="stylesheet">
         <link href="css/cuerpo.css" rel="stylesheet">
     </head>
-        <!--COLOR DEL CUERPO DE LA PAGINA-->
+    <!--COLOR DEL CUERPO DE LA PAGINA-->
     <body bgcolor="#FFFFFF">
         <!--TABLA PRINCIPAL-->
         <!--Centra; color-->
@@ -23,7 +23,7 @@
                         <header>
                             <nav class="navegacion">
                                 <ul  align="center" class="menu">
-                                    <li><a href="formulario.html"><h3>BASE DE DATOS</h3></a>
+                                    <li><a href="formulario.html"><h3>BASE DE DATOS</h3></a></li>
                                 </ul>
                             </nav>
                         </header>
@@ -85,19 +85,17 @@
             const provider = new GoogleAuthProvider();
     
             document.addEventListener('DOMContentLoaded', () => {
-                const authformulario = document.getElementById('formulario');
-                const email = document.getElementById('email');
-                const contraseña = document.getElementById('contraseña');
+                const emailField = document.getElementById('email');
+                const passwordField = document.getElementById('contraseña');
                 const iniciar_sesion = document.getElementById('iniciar_sesion');
                 const registrarse = document.getElementById('registrarse');
                 const sesion_google = document.getElementById('sesion_google');
 
-                //CAMBIO
                 // Iniciar sesion email
                 iniciar_sesion.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const email = email.value;
-                    const contraseña = contraseña.value;
+                    const email = emailField.value;
+                    const contraseña = passwordField.value;
     
                     signInWithEmailAndPassword(auth, email , contraseña)
                         .then((userCredential) => {
@@ -111,25 +109,25 @@
                             alert(`Error: ${error.message}`);
                         });
                 });
-                //CAMBIO
 
                 // Registrar sesion email
                 registrarse.addEventListener('click', (e) => {
-                e.preventDefault();
-                const email = email.value;
-                const contraseña= contraseña.value;
+                    e.preventDefault();
+                    const email = emailField.value;
+                    const contraseña = passwordField.value;
 
-                createUserWithEmailAndPassword(auth, email, contraseña)
-                    .then((userCredential) => {
-                        const user = userCredential.user;
-                        console.log('Usuario registrado:', user);
-                        
-                    })
-                    .catch((error) => {
-                        console.error('Error durante el registro:', error);
-                        alert(`Error: ${error.message}`);
-                    });
-            });
+                    createUserWithEmailAndPassword(auth, email, contraseña)
+                        .then((userCredential) => {
+                            const user = userCredential.user;
+                            console.log('Usuario registrado:', user);
+                            // Redirigir a index.html si es necesario
+                            window.location.href = 'index.html';
+                        })
+                        .catch((error) => {
+                            console.error('Error durante el registro:', error);
+                            alert(`Error: ${error.message}`);
+                        });
+                });
     
                 // Google login functionality
                 sesion_google.addEventListener('click', (e) => {
@@ -148,6 +146,5 @@
                 });
             });
         </script>
-
     </body>
 </html>
